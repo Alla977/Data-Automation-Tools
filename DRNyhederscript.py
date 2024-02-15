@@ -69,8 +69,9 @@ if can_scrape:
      body = '\n'.join(bodies)
 
      # Display the toast notification
-     notification = Notification(app_id="Dr Nyheder", title=title, msg=body, icon = icon_path)
-     notification.add_actions(label="Click Me!", launch="https://www.dr.dk/nyheder")
+     notification = Notification(app_id = " ",title=title, msg=body, icon = icon_path)
+    
+     notification.add_actions(label="Læs videre her", launch="https://www.dr.dk/nyheder")
      notification.set_audio(audio.Mail, loop=False)
      notification.show()
 
