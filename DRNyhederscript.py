@@ -32,10 +32,18 @@ if can_scrape:
 
  alle_nyheder = []
  for nyhed in all_news_items:
-
+   # Extracting header and paragraph items
    header_item = nyhed.find("span",class_="dre-title-text").text #Extract header subitem
    para_items = nyhed.find_all('p') #Extract paragrahh subitems
+  # Extracting hyperlink for the specific article. If there is none (e.g. Kort Nyt, set to a default value of '')
+   hyper_ref_item = nyhed.find("a",class_="hydra-latest-news-page-short-news-card__link")
+   if hyper_ref_item is not None:
+         full_hyper_ref = 'https://www.dr.dk' + hyper_ref_item['href']
+   else: 
+      full_hyper_ref = ''
+  # Collecting the strings corresponding to a new item in a list 
    collect = []
+   collect.append(full_hyper_ref)
    collect.append(header_item)
    for item in para_items:
      p = item.text
@@ -43,7 +51,7 @@ if can_scrape:
 
    alle_nyheder.append(collect)
 
- len(alle_nyheder)
+ print(alle_nyheder[0])
 
 ############### Create notifications #######################
 
@@ -52,21 +60,22 @@ if can_scrape:
  cwd = os.getcwd()
  icon_path = os.path.join(cwd, "DRlogo.png")
 
-
  for topic in alle_nyheder:
-     title = topic[0]
-     bodies = topic[1:]
+     if topic[0] != '':
+      href = topic[0] 
+     else: 
+      href = "https://www.dr.dk/nyheder"
+     title = topic[1]
+     bodies = topic[2:]
   
      bodies = [str(body) for body in bodies]
      # Join the body paragraphs into a single string
      cleaned_string = '\n\n'.join(bodies)
-  
-
 
      # Display the toast notification
      notification = Notification(app_id = "Kort Nyt",title=title, msg=cleaned_string, icon = icon_path)
-    
-     notification.add_actions(label="Læs videre her", launch="https://www.dr.dk/nyheder")
+     if href != "https://www.dr.dk/nyheder":
+      notification.add_actions(label="Læs videre her", launch=href)
      notification.set_audio(audio.Mail, loop=False)
      notification.show()
 
