@@ -33,6 +33,7 @@ if can_scrape:
    # Extracting header and paragraph items
    header_item = nyhed.find("span",class_="dre-title-text").text #Extract header subitem
    para_items = nyhed.find_all('p') #Extract paragrahh subitems
+   
   # Extracting hyperlink for the specific article. If there is none (e.g. Kort Nyt, set to a default value of '')
    hyper_ref_item = nyhed.find("a",class_="hydra-latest-news-page-short-news-card__link")
    if hyper_ref_item is not None:
@@ -74,10 +75,10 @@ if can_scrape:
      cleaned_string = '\n\n'.join(bodies)
 
      # Display the toast notification and add hyper_ref for article news types. 
-     notification = Notification(app_id = "Kort Nyt",title=title, msg=cleaned_string, icon = icon_path)
+     notification = Notification(app_id = "Seneste Nyheder",title=title, msg=cleaned_string, icon = icon_path)
      if href != "https://www.dr.dk/nyheder":
       notification.add_actions(label="Læs videre her", launch=href)
-     notification.set_audio(audio.Mail, loop=False)
+     #notification.set_audio(audio.Mail, loop=False)
      notification.show()
 
 else:
