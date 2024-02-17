@@ -1,8 +1,6 @@
 
 # Script that scrapes news items from DR Nyheder. 
-# The script is split into two sections: 
-# i) First the title of each news item is scraped using the BeautifulSoup package
-# ii) Then the text associated to each news item is scraped by searching for the parent div section, where the Title occurs. 
+ 
 
 ######################### Check permission to scrape #########################################
 import requests
@@ -51,10 +49,13 @@ if can_scrape:
 
    alle_nyheder.append(collect)
 
- print(alle_nyheder[0])
+#len(alle_nyheder)
+#alle_nyheder[30]
 
 ############### Create notifications #######################
-
+## Note that not all notifications will be shown by windows since there is a cut point of approx. 20 notifications. 
+## One could group further, or select most important articles using e.g. sentiment analysis.
+   
  from winotify import Notification, audio
  import os 
  cwd = os.getcwd()
@@ -72,7 +73,7 @@ if can_scrape:
      # Join the body paragraphs into a single string
      cleaned_string = '\n\n'.join(bodies)
 
-     # Display the toast notification
+     # Display the toast notification and add hyper_ref for article news types. 
      notification = Notification(app_id = "Kort Nyt",title=title, msg=cleaned_string, icon = icon_path)
      if href != "https://www.dr.dk/nyheder":
       notification.add_actions(label="Læs videre her", launch=href)
