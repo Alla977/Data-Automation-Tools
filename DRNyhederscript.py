@@ -1,5 +1,5 @@
 
-# Script that scrapes news items from DR Nyheder. 
+# Script that scrapes current news items from DR Nyheder and displays as toast notifications. 
  
 
 ######################### Check permission to scrape #########################################
@@ -26,7 +26,7 @@ if can_scrape:
 
 # Extract all news items 
  all_news_items = soup.find_all("li", class_ = "hydra-latest-news-page__short-news-item")
- len(all_news_items)
+ #len(all_news_items)
 
  alle_nyheder = []
  for nyhed in all_news_items:
@@ -53,7 +53,8 @@ if can_scrape:
 #len(alle_nyheder)
 #alle_nyheder[30]
 
-############### Create notifications #######################
+############################### Create notifications ##################################
+   
 ## Note that not all notifications will be shown by windows since there is a cut point of approx. 20 notifications. 
 ## One could group further, or select most important articles using e.g. sentiment analysis.
    
