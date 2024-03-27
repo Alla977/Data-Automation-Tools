@@ -1,6 +1,4 @@
 
-# Script that scrapes current news items from DR Nyheder and displays as toast notifications. 
- 
 
 ######################### Check permission to scrape #########################################
 import requests
