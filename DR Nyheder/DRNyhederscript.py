@@ -1,5 +1,5 @@
 
-
+##
 ######################### Check permission to scrape #########################################
 import requests
 from urllib.robotparser import RobotFileParser
